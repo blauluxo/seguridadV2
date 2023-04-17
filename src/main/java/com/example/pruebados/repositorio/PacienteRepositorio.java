@@ -15,6 +15,9 @@ public interface PacienteRepositorio extends JpaRepository<Paciente, Integer> {
     List<Paciente> findAll();
     @Override
     Optional<Paciente> findById(Integer id);
+    //-------------aqui va lo del jwt-----------------
     Optional<Paciente> findOneByEmail(String email);
+
+
 
 }
