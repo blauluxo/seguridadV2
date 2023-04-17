@@ -41,11 +41,21 @@ public class WebSecurityConfig  {
                 .build();
    }
 
+   @Bean
+   UserDetailsService userDetailsService(){
+    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(User.withUsername("admin")
+                .password(passwordEncoder().encode("admin"))
+                .roles()
+                .build());
+
+        return manager;
+   }
     @Bean
     AuthenticationManager authenticationManager(HttpSecurity httpSecurity,
                                             PasswordEncoder passwordEncoder) throws Exception{
     return httpSecurity.getSharedObject(AuthenticationManagerBuilder.class)
-            .userDetailsService(UserDetailsService())
+            .userDetailsService(userDetailsService())
             .passwordEncoder(passwordEncoder())
             .and()
             .build();
